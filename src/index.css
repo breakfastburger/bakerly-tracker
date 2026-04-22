@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  
+  body {
+    background-color: white;
+    color: rgb(17 24 39);
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #root {
+    flex: 1 1 0%;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    background-color: rgb(53 195 245);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .btn-primary:hover {
+    background-color: rgb(53 195 245 / 0.9);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgb(53 195 245 / 0.3);
+  }
+  
+  .btn-primary:active {
+    background-color: rgb(53 195 245 / 0.8);
+    transform: translateY(0);
+  }
+  
+  .btn-secondary {
+    background-color: rgb(243 244 246);
+    color: rgb(55 65 81);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  
+  .btn-secondary:hover {
+    background-color: rgb(229 231 235);
+  }
+  
+  .btn-secondary:active {
+    background-color: rgb(209 213 219);
+  }
+  
+  .card {
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    border: 1px solid rgb(243 244 246);
+  }
+  
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    font-size: 0.75rem;
+    transition: color 0.2s;
+  }
+  
+  .nav-item.active {
+    color: rgb(53 195 245);
+  }
+  
+  .nav-item:not(.active) {
+    color: rgb(107 114 128);
+  }
+}

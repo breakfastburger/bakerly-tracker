@@ -1,0 +1,28 @@
+{
+  "name": "Bakerly Tracker Pro",
+  "short_name": "Bakerly",
+  "description": "Sales and debt management for crepe business",
+  "start_url": "/bakerly-tracker/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#910029",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/images/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity", "finance"],
+  "lang": "en",
+  "scope": "/bakerly-tracker/",
+  "prefer_related_applications": false
+}
