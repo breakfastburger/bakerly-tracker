@@ -6,6 +6,8 @@ export default defineConfig({
   plugins: [react()],
   base: '/bakerly-tracker/',
   build: {
-    outDir: 'dist'
-  }
+    outDir: 'dist',
+    copyPublicDir: true
+  },
+  publicDir: 'public'
 })
