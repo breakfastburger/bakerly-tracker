@@ -7,37 +7,36 @@
   }
   
   html {
-    height: 100%;
+    /* Dynamic viewport height for true edge-to-edge */
+    height: 100dvh;
     -webkit-text-size-adjust: 100%;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+    /* Prevent zoom on input focus */
+    touch-action: manipulation;
   }
   
   body {
     background-color: white;
     color: rgb(17 24 39);
     font-family: ui-sans-serif, system-ui, sans-serif;
-    min-height: 100vh;
-    height: 100%;
+    /* Use dynamic viewport height */
+    min-height: 100dvh;
+    height: 100dvh;
     display: flex;
     flex-direction: column;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
+    /* Edge-to-edge background extends to screen boundaries */
+    position: relative;
   }
   
   #root {
     flex: 1 1 0%;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    /* Use dynamic viewport height */
+    min-height: 100dvh;
+    height: 100dvh;
     overflow-x: hidden;
     width: 100%;
     position: relative;
@@ -54,9 +53,10 @@
     }
   }
   
-  /* Mobile safe area handling */
+  /* Edge-to-edge safe area handling */
   @supports (padding: max(0px)) {
     body {
+      /* Background extends to edges */
       padding-left: env(safe-area-inset-left);
       padding-right: env(safe-area-inset-right);
       padding-top: env(safe-area-inset-top);
@@ -64,7 +64,11 @@
     }
     
     #root {
+      /* Content respects safe areas */
       padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
     }
   }
   
@@ -83,6 +87,15 @@
   /* Prevent elastic scrolling */
   html, body {
     overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Main content container with safe area respect */
+  .main-container {
+    flex: 1 1 0%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
 }

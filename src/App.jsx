@@ -212,7 +212,7 @@ function App() {
       <Header isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
       
       <main 
-        className={`flex-1 pb-20 overflow-y-auto transition-opacity duration-300 ease-in-out ${
+        className={`main-container pb-20 transition-opacity duration-300 ease-in-out ${
           isTransitioning ? 'opacity-0' : 'opacity-100'
         }`}
         onTouchStart={handleTouchStart}
