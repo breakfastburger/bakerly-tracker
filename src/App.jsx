@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingCart, Users, BarChart3, Package, Plus, X, Calendar, DollarSign } from 'lucide-react';
+import { ShoppingCart, Users, BarChart3, Package, Plus, X, Calendar, DollarSign, Moon } from 'lucide-react';
 import Header from './components/Header';
 import BottomNav from './components/BottomNav';
 import ShopTab from './components/ShopTab';
@@ -19,6 +19,11 @@ function App() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
 
   const tabs = ['shop', 'debts', 'analytics', 'stock', 'payments'];
   const currentTabIndex = tabs.indexOf(activeTab);
@@ -144,21 +149,21 @@ function App() {
       case 'shop':
         return <ShopTab onSale={handleSale} strawberryStock={strawberryStock} chocolateStock={chocolateStock} />;
       case 'debts':
-        return <DebtsTab debts={debts} onClearDebt={clearDebt} />;
+        return <DebtsTab debts={debts} onClearDebt={clearDebt} isDarkMode={isDarkMode} />;
       case 'payments':
-        return <PaymentsTab payments={payments} />;
+        return <PaymentsTab payments={payments} isDarkMode={isDarkMode} />;
       case 'analytics':
-        return <AnalyticsTab sales={sales} totalEarned={totalEarned} />;
+        return <AnalyticsTab sales={sales} totalEarned={totalEarned} isDarkMode={isDarkMode} />;
       case 'stock':
-        return <StockTab strawberryStock={strawberryStock} setStrawberryStock={setStrawberryStock} chocolateStock={chocolateStock} setChocolateStock={setChocolateStock} />;
+        return <StockTab strawberryStock={strawberryStock} setStrawberryStock={setStrawberryStock} chocolateStock={chocolateStock} setChocolateStock={setChocolateStock} isDarkMode={isDarkMode} />;
       default:
-        return <ShopTab onSale={handleSale} strawberryStock={strawberryStock} chocolateStock={chocolateStock} />;
+        return <ShopTab onSale={handleSale} strawberryStock={strawberryStock} chocolateStock={chocolateStock} isDarkMode={isDarkMode} />;
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
-      <Header />
+    <div className={`min-h-screen flex flex-col ${isDarkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
+      <Header isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
       
       <main 
         className={`flex-1 pb-20 overflow-y-auto transition-opacity duration-300 ease-in-out ${
@@ -171,7 +176,7 @@ function App() {
         {renderActiveTab()}
       </main>
 
-      <BottomNav activeTab={activeTab} setActiveTab={setActiveTab} />
+      <BottomNav activeTab={activeTab} setActiveTab={setActiveTab} isDarkMode={isDarkMode} />
     </div>
   );
 }

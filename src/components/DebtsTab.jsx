@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { User, DollarSign, Calendar, Check, ArrowLeft, CreditCard } from 'lucide-react';
 
-const DebtsTab = ({ debts, onClearDebt }) => {
+const DebtsTab = ({ debts, onClearDebt, isDarkMode }) => {
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [showSecondConfirm, setShowSecondConfirm] = useState(false);
@@ -19,25 +19,46 @@ const DebtsTab = ({ debts, onClearDebt }) => {
     return productId === 'strawberry' ? 'strawberry' : 'chocolate';
   };
 
+  const getCustomerCrepeSummary = (items) => {
+    const summary = {};
+    items.forEach(item => {
+      if (!summary[item.product]) {
+        summary[item.product] = 0;
+      }
+      summary[item.product] += item.quantity;
+    });
+    return summary;
+  };
+
   if (selectedCustomer) {
     const customerDebt = debts.find(d => d.customerName === selectedCustomer);
     
     return (
       <div className="p-4 max-w-md mx-auto">
-        <div className="bg-white rounded-xl shadow-lg p-6">
+        <div className={`rounded-xl shadow-lg p-6 ${
+          isDarkMode ? 'bg-gray-800' : 'bg-white'
+        }`}>
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center space-x-3">
               <button
                 onClick={() => setSelectedCustomer(null)}
-                className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+                className={`p-2 rounded-full transition-colors ${
+                  isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'
+                }`}
               >
-                <ArrowLeft size={20} />
+                <ArrowLeft size={20} className={isDarkMode ? 'text-white' : 'text-gray-700'} />
               </button>
               <div>
-                <h2 className="text-xl font-bold text-gray-900">
+                <h2 className={`text-xl font-bold ${
+                  isDarkMode ? 'text-white' : 'text-gray-900'
+                }`}>
                   {selectedCustomer}
                 </h2>
-                <p className="text-sm text-gray-500">Debt Details</p>
+                <p className={`text-sm ${
+                  isDarkMode ? 'text-gray-400' : 'text-gray-500'
+                }`}>
+                  Debt Details
+                </p>
               </div>
             </div>
           </div>
@@ -52,12 +73,16 @@ const DebtsTab = ({ debts, onClearDebt }) => {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-3">
+            <h3 className={`text-lg font-semibold mb-3 ${
+              isDarkMode ? 'text-white' : 'text-gray-900'
+            }`}>
               Purchase History
             </h3>
             <div className="space-y-3">
               {customerDebt.items.map((item, index) => (
-                <div key={item.id} className="bg-gray-50 rounded-lg p-3">
+                <div key={item.id} className={`rounded-lg p-3 ${
+                  isDarkMode ? 'bg-gray-700' : 'bg-gray-50'
+                }`}>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
                       <img 
@@ -66,15 +91,21 @@ const DebtsTab = ({ debts, onClearDebt }) => {
                         className="w-8 h-8 object-contain"
                       />
                       <div>
-                        <div className="font-medium text-gray-900">
+                        <div className={`font-medium ${
+                          isDarkMode ? 'text-white' : 'text-gray-900'
+                        }`}>
                           {item.quantity}x {item.product === 'strawberry' ? 'Strawberry' : 'Chocolate'} Crepe
                         </div>
-                        <div className="text-sm text-gray-500">
+                        <div className={`text-sm ${
+                          isDarkMode ? 'text-gray-400' : 'text-gray-500'
+                        }`}>
                           {formatDate(item.date)}
                         </div>
                       </div>
                     </div>
-                    <div className="text-lg font-bold text-bakerly-burgundy">
+                    <div className={`text-lg font-bold ${
+                      isDarkMode ? 'text-white' : 'text-bakerly-burgundy'
+                    }`}>
                       ${item.price * item.quantity}
                     </div>
                   </div>
@@ -161,19 +192,25 @@ const DebtsTab = ({ debts, onClearDebt }) => {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+      <h1 className={`text-2xl font-bold mb-6 text-center ${
+        isDarkMode ? 'text-white' : 'text-gray-900'
+      }`}>
         Debt Ledger
       </h1>
 
       {debts.length === 0 ? (
         <div className="text-center py-12">
-          <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <CreditCard size={40} className="text-gray-400" />
+          <div className={`w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 ${
+            isDarkMode ? 'bg-gray-800' : 'bg-gray-100'
+          }`}>
+            <CreditCard size={40} className={isDarkMode ? 'text-gray-500' : 'text-gray-400'} />
           </div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">
+          <h3 className={`text-lg font-semibold mb-2 ${
+            isDarkMode ? 'text-white' : 'text-gray-900'
+          }`}>
             No Debts
           </h3>
-          <p className="text-gray-500">
+          <p className={isDarkMode ? 'text-gray-400' : 'text-gray-500'}>
             All customers have paid their dues!
           </p>
         </div>
@@ -183,27 +220,58 @@ const DebtsTab = ({ debts, onClearDebt }) => {
             <button
               key={debt.customerName}
               onClick={() => setSelectedCustomer(debt.customerName)}
-              className="w-full card p-4 hover:shadow-md transition-shadow text-left"
+              className={`w-full card p-4 hover:shadow-md transition-shadow text-left ${
+                  isDarkMode ? 'bg-gray-800' : 'bg-white'
+                }`}
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-bakerly-burgundy rounded-full flex items-center justify-center text-white font-bold">
-                    {debt.customerName.charAt(0).toUpperCase()}
+                  <div className="flex space-x-1">
+                    {Object.entries(getCustomerCrepeSummary(debt.items)).map(([product, quantity]) => (
+                      <div key={product} className="relative flex-shrink-0">
+                        <div className={`w-8 h-8 rounded flex items-center justify-center ${
+                          isDarkMode ? 'bg-gray-700' : 'bg-gray-200'
+                        }`}>
+                          <img 
+                            src={product === 'strawberry' ? '/bakerly-tracker/images/strawberry.png' : '/bakerly-tracker/images/chocolate.png'}
+                            alt={product}
+                            className="w-8 h-8 object-contain"
+                            onError={(e) => {
+                              e.target.style.display = 'none';
+                              e.target.parentElement.innerHTML = `<span style="font-size: 12px;">${product === 'strawberry' ? '🍓' : '🍫'}</span>`;
+                            }}
+                          />
+                        </div>
+                        <div className={`absolute -top-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center text-xs font-bold text-white ${
+                          product === 'strawberry' ? 'bg-[#F14657]' : 'bg-[#35c3f5]'
+                        }`}>
+                          {quantity}
+                        </div>
+                      </div>
+                    ))}
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900">
+                    <div className={`font-semibold ${
+                      isDarkMode ? 'text-white' : 'text-gray-900'
+                    }`}>
                       {debt.customerName}
                     </div>
-                    <div className="text-sm text-gray-500">
+                    <div className={`text-sm ${
+                      isDarkMode ? 'text-gray-400' : 'text-gray-500'
+                    }`}>
                       {debt.items.length} purchase{debt.items.length !== 1 ? 's' : ''}
                     </div>
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="text-xl font-bold text-bakerly-burgundy">
+                  <div className={`text-xl font-bold ${
+                    isDarkMode ? 'text-white' : 'text-bakerly-burgundy'
+                  }`}>
                     ${debt.amount}
                   </div>
-                  <div className="text-xs text-gray-500">
+                  <div className={`text-xs ${
+                    isDarkMode ? 'text-gray-400' : 'text-gray-500'
+                  }`}>
                     Last: {formatDate(debt.items[debt.items.length - 1].date)}
                   </div>
                 </div>
@@ -211,10 +279,18 @@ const DebtsTab = ({ debts, onClearDebt }) => {
             </button>
           ))}
           
-          <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+          <div className={`mt-6 p-4 rounded-lg ${
+            isDarkMode ? 'bg-gray-800' : 'bg-gray-50'
+          }`}>
             <div className="flex justify-between items-center">
-              <span className="font-semibold text-gray-900">Total Outstanding:</span>
-              <span className="text-xl font-bold text-bakerly-burgundy">
+              <span className={`font-semibold ${
+                isDarkMode ? 'text-white' : 'text-gray-900'
+              }`}>
+                Total Outstanding:
+              </span>
+              <span className={`text-xl font-bold ${
+                isDarkMode ? 'text-white' : 'text-bakerly-burgundy'
+              }`}>
                 ${debts.reduce((sum, debt) => sum + debt.amount, 0)}
               </span>
             </div>

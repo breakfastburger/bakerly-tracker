@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, DollarSign, TrendingUp, BarChart3 } from 'lucide-react';
 
-const AnalyticsTab = ({ sales, totalEarned }) => {
+const AnalyticsTab = ({ sales, totalEarned, isDarkMode }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
 
@@ -91,13 +91,15 @@ const AnalyticsTab = ({ sales, totalEarned }) => {
             isSelected 
               ? 'border-bakerly-burgundy bg-bakerly-burgundy text-white' 
               : isToday
-              ? 'border-bakerly-burgundy bg-white'
+              ? `border-bakerly-burgundy ${isDarkMode ? 'bg-gray-700 text-white' : 'bg-white text-gray-900'}`
+              : isDarkMode
+              ? 'border-gray-600 bg-gray-800 text-white hover:border-gray-500'
               : 'border-gray-200 bg-white hover:border-gray-300'
           }`}
         >
           <div className="text-sm font-medium">{day}</div>
           {daySales.length > 0 && (
-            <div className={`text-xs ${isSelected ? 'text-white' : 'text-bakerly-burgundy'}`}>
+            <div className={`text-xs ${isSelected ? 'text-white' : isDarkMode ? 'text-green-400' : 'text-bakerly-burgundy'}`}>
               ${profit}
             </div>
           )}
@@ -109,7 +111,9 @@ const AnalyticsTab = ({ sales, totalEarned }) => {
       <div>
         <div className="grid grid-cols-7 gap-1 mb-2">
           {weekDays.map(day => (
-            <div key={day} className="text-center text-xs font-medium text-gray-500 py-1">
+            <div key={day} className={`text-center text-xs font-medium py-1 ${
+              isDarkMode ? 'text-gray-400' : 'text-gray-500'
+            }`}>
               {day}
             </div>
           ))}
@@ -128,7 +132,9 @@ const AnalyticsTab = ({ sales, totalEarned }) => {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+      <h1 className={`text-2xl font-bold mb-6 text-center ${
+        isDarkMode ? 'text-white' : 'text-gray-900'
+      }`}>
         Analytics
       </h1>
 
@@ -154,24 +160,32 @@ const AnalyticsTab = ({ sales, totalEarned }) => {
       </div>
 
       {/* Calendar */}
-      <div className="bg-white rounded-xl shadow-lg p-4 mb-6 max-w-md mx-auto">
+      <div className={`rounded-xl shadow-lg p-4 mb-6 max-w-md mx-auto ${
+        isDarkMode ? 'bg-gray-800' : 'bg-white'
+      }`}>
         <div className="flex items-center justify-between mb-4">
           <button
             onClick={() => navigateMonth(-1)}
-            className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+            className={`p-2 rounded-full transition-colors ${
+              isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'
+            }`}
           >
-            <ChevronLeft size={20} />
+            <ChevronLeft size={20} className={isDarkMode ? 'text-white' : 'text-gray-700'} />
           </button>
           
-          <h2 className="text-lg font-bold text-gray-900">
+          <h2 className={`text-lg font-bold ${
+            isDarkMode ? 'text-white' : 'text-gray-900'
+          }`}>
             {currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
           </h2>
           
           <button
             onClick={() => navigateMonth(1)}
-            className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+            className={`p-2 rounded-full transition-colors ${
+              isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'
+            }`}
           >
-            <ChevronRight size={20} />
+            <ChevronRight size={20} className={isDarkMode ? 'text-white' : 'text-gray-700'} />
           </button>
         </div>
         
@@ -180,8 +194,12 @@ const AnalyticsTab = ({ sales, totalEarned }) => {
 
       {/* Selected Date Details */}
       {selectedDate && (
-        <div className="bg-white rounded-xl shadow-lg p-4 max-w-md mx-auto">
-          <h3 className="text-lg font-bold text-gray-900 mb-3">
+        <div className={`rounded-xl shadow-lg p-4 max-w-md mx-auto ${
+          isDarkMode ? 'bg-gray-800' : 'bg-white'
+        }`}>
+          <h3 className={`text-lg font-bold mb-3 ${
+            isDarkMode ? 'text-white' : 'text-gray-900'
+          }`}>
             {selectedDate.toLocaleDateString('en-US', { 
               weekday: 'long', 
               month: 'long', 
@@ -190,12 +208,18 @@ const AnalyticsTab = ({ sales, totalEarned }) => {
           </h3>
           
           {selectedDateSales.length === 0 ? (
-            <p className="text-gray-500 text-center py-4">No sales on this day</p>
+            <p className={`text-center py-4 ${
+              isDarkMode ? 'text-gray-400' : 'text-gray-500'
+            }`}>No sales on this day</p>
           ) : (
             <div className="space-y-3">
-              <div className="bg-gray-50 rounded-lg p-3">
+              <div className={`rounded-lg p-3 ${
+                isDarkMode ? 'bg-gray-700' : 'bg-gray-50'
+              }`}>
                 <div className="flex justify-between items-center">
-                  <span className="font-medium text-gray-900">Total Profit</span>
+                  <span className={`font-medium ${
+                    isDarkMode ? 'text-white' : 'text-gray-900'
+                  }`}>Total Profit</span>
                   <span className="text-xl font-bold text-bakerly-burgundy">
                     ${selectedDateProfit}
                   </span>
@@ -204,7 +228,9 @@ const AnalyticsTab = ({ sales, totalEarned }) => {
               
               <div className="space-y-2">
                 {selectedDateSales.map(sale => (
-                  <div key={sale.id} className="bg-gray-50 rounded-lg p-2">
+                  <div key={sale.id} className={`rounded-lg p-2 ${
+                    isDarkMode ? 'bg-gray-700' : 'bg-gray-50'
+                  }`}>
                     <div className="flex items-center justify-between text-sm">
                       <div className="flex items-center space-x-2">
                         <img 
@@ -212,7 +238,9 @@ const AnalyticsTab = ({ sales, totalEarned }) => {
                           alt={sale.product}
                           className="w-6 h-6 object-contain"
                         />
-                        <span className="font-medium">
+                        <span className={`font-medium ${
+                          isDarkMode ? 'text-white' : 'text-gray-900'
+                        }`}>
                           {sale.quantity}x {sale.product === 'strawberry' ? 'Strawberry' : 'Chocolate'}
                         </span>
                       </div>

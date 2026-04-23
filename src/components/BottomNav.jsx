@@ -1,7 +1,7 @@
 import React from 'react';
 import { ShoppingCart, Users, BarChart3, Package, Check } from 'lucide-react';
 
-const BottomNav = ({ activeTab, setActiveTab }) => {
+const BottomNav = ({ activeTab, setActiveTab, isDarkMode }) => {
   const navItems = [
     { id: 'shop', label: 'Shop', icon: ShoppingCart },
     { id: 'debts', label: 'Debts', icon: Users },
@@ -11,7 +11,9 @@ const BottomNav = ({ activeTab, setActiveTab }) => {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50">
+    <nav className={`fixed bottom-0 left-0 right-0 border-t z-50 ${
+      isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
+    }`}>
       <div className="flex justify-around items-center h-16">
         {navItems.map(item => {
           const Icon = item.icon;
@@ -19,7 +21,9 @@ const BottomNav = ({ activeTab, setActiveTab }) => {
             <button
               key={item.id}
               onClick={() => setActiveTab(item.id)}
-              className={`nav-item ${activeTab === item.id ? 'active' : ''}`}
+              className={`nav-item ${activeTab === item.id ? 'active' : ''} ${
+                isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'
+              }`}
             >
               <Icon size={20} />
               <span className="mt-1">{item.label}</span>
