@@ -19,7 +19,7 @@ function App() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
@@ -193,7 +193,7 @@ function App() {
   const renderActiveTab = () => {
     switch (activeTab) {
       case 'shop':
-        return <ShopTab onSale={handleSale} strawberryStock={strawberryStock} chocolateStock={chocolateStock} />;
+        return <ShopTab onSale={handleSale} strawberryStock={strawberryStock} chocolateStock={chocolateStock} isDarkMode={isDarkMode} />;
       case 'debts':
         return <DebtsTab debts={debts} onClearDebt={clearDebt} onDeleteOrder={deleteDebtOrder} isDarkMode={isDarkMode} />;
       case 'payments':
