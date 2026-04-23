@@ -144,14 +144,60 @@ function App() {
     }
   };
 
+  const deleteDebtOrder = (customerName, orderId) => {
+    setDebts(prev => {
+      return prev.map(debt => {
+        if (debt.customerName === customerName) {
+          const updatedItems = debt.items.filter(item => item.id !== orderId);
+          const deletedItem = debt.items.find(item => item.id === orderId);
+          
+          if (updatedItems.length === 0) {
+            // If no items left, remove the entire debt
+            return null;
+          }
+          
+          // Recalculate amount
+          const newAmount = updatedItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+          
+          return {
+            ...debt,
+            amount: newAmount,
+            items: updatedItems
+          };
+        }
+        return debt;
+      }).filter(Boolean); // Remove null entries
+    });
+  };
+
+  const deletePaymentOrder = (orderId) => {
+    setPayments(prev => {
+      const deletedPayment = prev.find(payment => payment.id === orderId);
+      
+      if (deletedPayment) {
+        // Subtract from total earned
+        setTotalEarned(prevEarned => prevEarned - (deletedPayment.price * deletedPayment.quantity));
+        
+        // Add stock back
+        if (deletedPayment.product === 'strawberry') {
+          setStrawberryStock(prevStock => prevStock + deletedPayment.quantity);
+        } else if (deletedPayment.product === 'chocolate') {
+          setChocolateStock(prevStock => prevStock + deletedPayment.quantity);
+        }
+      }
+      
+      return prev.filter(payment => payment.id !== orderId);
+    });
+  };
+
   const renderActiveTab = () => {
     switch (activeTab) {
       case 'shop':
         return <ShopTab onSale={handleSale} strawberryStock={strawberryStock} chocolateStock={chocolateStock} />;
       case 'debts':
-        return <DebtsTab debts={debts} onClearDebt={clearDebt} isDarkMode={isDarkMode} />;
+        return <DebtsTab debts={debts} onClearDebt={clearDebt} onDeleteOrder={deleteDebtOrder} isDarkMode={isDarkMode} />;
       case 'payments':
-        return <PaymentsTab payments={payments} isDarkMode={isDarkMode} />;
+        return <PaymentsTab payments={payments} onDeleteOrder={deletePaymentOrder} isDarkMode={isDarkMode} />;
       case 'analytics':
         return <AnalyticsTab sales={sales} totalEarned={totalEarned} isDarkMode={isDarkMode} />;
       case 'stock':

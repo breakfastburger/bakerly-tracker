@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Check, Calendar, DollarSign, Search, ArrowLeft, TrendingUp } from 'lucide-react';
+import { Check, Calendar, DollarSign, Search, ArrowLeft, TrendingUp, Trash2 } from 'lucide-react';
 
-const PaymentsTab = ({ payments, isDarkMode }) => {
+const PaymentsTab = ({ payments, onDeleteOrder, isDarkMode }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -122,10 +122,27 @@ const PaymentsTab = ({ payments, isDarkMode }) => {
                         </div>
                       </div>
                     </div>
-                    <div className={`text-lg font-bold ${
-                      payment.product === 'strawberry' ? 'text-red-500' : 'text-blue-500'
-                    }`}>
-                      ${payment.price * payment.quantity}
+                    <div className="flex items-center space-x-2">
+                      <div className={`text-lg font-bold ${
+                        payment.product === 'strawberry' ? 'text-red-500' : 'text-blue-500'
+                      }`}>
+                        ${payment.price * payment.quantity}
+                      </div>
+                      <button
+                        onClick={() => {
+                          if (confirm(`Delete this ${payment.quantity}x ${payment.product === 'strawberry' ? 'Strawberry' : 'Chocolate'} Crepe Pack payment? This will refund the stock and reduce total earnings.`)) {
+                            onDeleteOrder(payment.id);
+                          }
+                        }}
+                        className={`p-2 rounded-lg transition-colors ${
+                          isDarkMode 
+                            ? 'hover:bg-red-900 text-red-400' 
+                            : 'hover:bg-red-100 text-red-600'
+                        }`}
+                        title="Delete payment"
+                      >
+                        <Trash2 size={16} />
+                      </button>
                     </div>
                   </div>
                 </div>

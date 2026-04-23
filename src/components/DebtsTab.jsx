@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { User, DollarSign, Calendar, Check, ArrowLeft, CreditCard } from 'lucide-react';
+import { User, DollarSign, Calendar, Check, ArrowLeft, CreditCard, Trash2 } from 'lucide-react';
 
-const DebtsTab = ({ debts, onClearDebt, isDarkMode }) => {
+const DebtsTab = ({ debts, onClearDebt, onDeleteOrder, isDarkMode }) => {
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [showSecondConfirm, setShowSecondConfirm] = useState(false);
@@ -32,6 +32,12 @@ const DebtsTab = ({ debts, onClearDebt, isDarkMode }) => {
 
   if (selectedCustomer) {
     const customerDebt = debts.find(d => d.customerName === selectedCustomer);
+    
+    // If customer was completely deleted, go back to customer list
+    if (!customerDebt) {
+      setSelectedCustomer(null);
+      return null;
+    }
     
     return (
       <div className="p-4 max-w-md mx-auto">
@@ -103,10 +109,27 @@ const DebtsTab = ({ debts, onClearDebt, isDarkMode }) => {
                         </div>
                       </div>
                     </div>
-                    <div className={`text-lg font-bold ${
-                      isDarkMode ? 'text-white' : 'text-bakerly-burgundy'
-                    }`}>
-                      ${item.price * item.quantity}
+                    <div className="flex items-center space-x-2">
+                      <div className={`text-lg font-bold ${
+                        isDarkMode ? 'text-white' : 'text-bakerly-burgundy'
+                      }`}>
+                        ${item.price * item.quantity}
+                      </div>
+                      <button
+                        onClick={() => {
+                          if (confirm(`Delete this ${item.quantity}x ${item.product === 'strawberry' ? 'Strawberry' : 'Chocolate'} Crepe order?`)) {
+                            onDeleteOrder(selectedCustomer, item.id);
+                          }
+                        }}
+                        className={`p-2 rounded-lg transition-colors ${
+                          isDarkMode 
+                            ? 'hover:bg-red-900 text-red-400' 
+                            : 'hover:bg-red-100 text-red-600'
+                        }`}
+                        title="Delete order"
+                      >
+                        <Trash2 size={16} />
+                      </button>
                     </div>
                   </div>
                 </div>

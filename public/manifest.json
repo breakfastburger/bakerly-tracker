@@ -9,13 +9,25 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/bakerly-tracker/images/logo.png",
+      "src": "/bakerly-tracker/images/bakerly-tracker-180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/bakerly-tracker/images/bakerly-tracker-120.png",
+      "sizes": "120x120",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/bakerly-tracker/images/bakerly-tracker-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/bakerly-tracker/images/logo.png",
+      "src": "/bakerly-tracker/images/bakerly-tracker-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
