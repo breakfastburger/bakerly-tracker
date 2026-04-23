@@ -15,7 +15,8 @@
   }
   
   body {
-    background-color: white;
+    /* Match header background color for seamless edge-to-edge */
+    background-color: #1f2937;
     color: rgb(17 24 39);
     font-family: ui-sans-serif, system-ui, sans-serif;
     /* Use dynamic viewport height */

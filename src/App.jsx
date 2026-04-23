@@ -208,7 +208,7 @@ function App() {
   };
 
   return (
-    <div className={`min-h-screen flex flex-col ${isDarkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
+    <div className="min-h-screen flex flex-col">
       <Header isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
       
       <main 
