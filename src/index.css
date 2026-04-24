@@ -7,21 +7,20 @@
   }
   
   html {
-    /* Dynamic viewport height for true edge-to-edge */
-    height: 100dvh;
+    /* Fix viewport alignment for edge-to-edge */
+    height: 100%;
     -webkit-text-size-adjust: 100%;
     /* Prevent zoom on input focus */
     touch-action: manipulation;
   }
   
   body {
-    /* Match header background color for seamless edge-to-edge */
-    background-color: #1f2937;
-    color: rgb(17 24 39);
+    /* Dynamic background color based on theme */
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     font-family: ui-sans-serif, system-ui, sans-serif;
-    /* Use dynamic viewport height */
-    min-height: 100dvh;
-    height: 100dvh;
+    /* Use full height for edge-to-edge */
+    height: 100%;
     display: flex;
     flex-direction: column;
     margin: 0;
@@ -29,6 +28,17 @@
     overflow-x: hidden;
     /* Edge-to-edge background extends to screen boundaries */
     position: relative;
+  }
+  
+  /* CSS variables for theme switching */
+  :root {
+    --bg-primary: #ffffff;
+    --text-primary: rgb(17 24 39);
+  }
+  
+  .dark {
+    --bg-primary: #1f2937;
+    --text-primary: rgb(17 24 39);
   }
   
   #root {
@@ -96,6 +106,7 @@
     flex: 1 1 0%;
     display: flex;
     flex-direction: column;
+    min-height: 100dvh;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }

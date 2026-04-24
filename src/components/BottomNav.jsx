@@ -13,8 +13,11 @@ const BottomNav = ({ activeTab, setActiveTab, isDarkMode }) => {
   return (
     <nav className={`fixed bottom-0 left-0 right-0 border-t z-50 ${
       isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
-    }`}>
-      <div className="flex justify-around items-center h-16">
+    }`}
+         style={{ 
+           paddingBottom: 'calc(env(safe-area-inset-bottom) + 12px)' 
+         }}>
+      <div className="flex justify-around items-center h-20">
         {navItems.map(item => {
           const Icon = item.icon;
           return (
