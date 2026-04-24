@@ -151,22 +151,25 @@ function App() {
           const updatedItems = debt.items.filter(item => item.id !== orderId);
           const deletedItem = debt.items.find(item => item.id === orderId);
           
-          if (updatedItems.length === 0) {
-            // If no items left, remove the entire debt
-            return null;
+          // Remove from sales array
+          if (deletedItem) {
+            setSales(salesPrev => salesPrev.filter(sale => sale.id !== orderId));
           }
           
-          // Recalculate amount
-          const newAmount = updatedItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-          
-          return {
-            ...debt,
-            amount: newAmount,
-            items: updatedItems
-          };
+          if (updatedItems.length === 0) {
+            // If no items left, remove the entire debt
+            return prev.filter(d => d.customerName !== customerName);
+          } else {
+            // Update the debt with remaining items
+            return {
+              ...debt,
+              items: updatedItems,
+              amount: updatedItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+            };
+          }
         }
         return debt;
-      }).filter(Boolean); // Remove null entries
+      });
     });
   };
 
@@ -177,6 +180,9 @@ function App() {
       if (deletedPayment) {
         // Subtract from total earned
         setTotalEarned(prevEarned => prevEarned - (deletedPayment.price * deletedPayment.quantity));
+        
+        // Remove from sales array
+        setSales(salesPrev => salesPrev.filter(sale => sale.id !== orderId));
         
         // Add stock back
         if (deletedPayment.product === 'strawberry') {
