@@ -120,6 +120,13 @@ const PaymentsTab = ({ payments, onDeleteOrder, isDarkMode }) => {
                         }`}>
                           {payment.customerName} - {payment.timestamp}
                         </div>
+                        {payment.notes && (
+                          <div className={`text-xs mt-1 ${
+                            isDarkMode ? 'text-gray-500' : 'text-gray-600'
+                          }`}>
+                            Notes: {payment.notes}
+                          </div>
+                        )}
                       </div>
                     </div>
                     <div className="flex items-center space-x-2">
