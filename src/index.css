@@ -119,14 +119,15 @@
     /* Ensure proper scrolling on iOS */
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
-    /* Add large padding for scroll dead-zones */
+    /* Add padding for fixed header and scroll dead-zones */
+    padding-top: 80px;
     padding-bottom: 150px;
   }
   
   /* Fixed confirm button container */
   .sticky-confirm {
     position: fixed;
-    bottom: 3rem;
+    bottom: 2rem;
     left: 0;
     right: 0;
     background: white;

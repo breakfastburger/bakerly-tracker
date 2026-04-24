@@ -4,7 +4,7 @@ import { Moon, Sun } from 'lucide-react';
 const Header = ({ isDarkMode }) => {
   return (
     <header 
-      className="shadow-sm border-b"
+      className="fixed top-0 left-0 right-0 shadow-sm border-b z-40"
       style={{ 
         backgroundColor: '#ffffff',
         borderColor: '#e5e7eb',
