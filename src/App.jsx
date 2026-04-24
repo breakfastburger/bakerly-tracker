@@ -199,23 +199,23 @@ function App() {
   const renderActiveTab = () => {
     switch (activeTab) {
       case 'shop':
-        return <ShopTab onSale={handleSale} strawberryStock={strawberryStock} chocolateStock={chocolateStock} isDarkMode={isDarkMode} />;
+        return <ShopTab onSale={handleSale} strawberryStock={strawberryStock} chocolateStock={chocolateStock} isDarkMode={false} />;
       case 'debts':
-        return <DebtsTab debts={debts} onClearDebt={clearDebt} onDeleteOrder={deleteDebtOrder} isDarkMode={isDarkMode} />;
+        return <DebtsTab debts={debts} onClearDebt={clearDebt} onDeleteOrder={deleteDebtOrder} isDarkMode={false} />;
       case 'payments':
-        return <PaymentsTab payments={payments} onDeleteOrder={deletePaymentOrder} isDarkMode={isDarkMode} />;
+        return <PaymentsTab payments={payments} onDeleteOrder={deletePaymentOrder} isDarkMode={false} />;
       case 'analytics':
-        return <AnalyticsTab sales={sales} totalEarned={totalEarned} isDarkMode={isDarkMode} />;
+        return <AnalyticsTab sales={sales} totalEarned={totalEarned} isDarkMode={false} />;
       case 'stock':
-        return <StockTab strawberryStock={strawberryStock} setStrawberryStock={setStrawberryStock} chocolateStock={chocolateStock} setChocolateStock={setChocolateStock} isDarkMode={isDarkMode} />;
+        return <StockTab strawberryStock={strawberryStock} setStrawberryStock={setStrawberryStock} chocolateStock={chocolateStock} setChocolateStock={setChocolateStock} isDarkMode={false} />;
       default:
-        return <ShopTab onSale={handleSale} strawberryStock={strawberryStock} chocolateStock={chocolateStock} isDarkMode={isDarkMode} />;
+        return <ShopTab onSale={handleSale} strawberryStock={strawberryStock} chocolateStock={chocolateStock} isDarkMode={false} />;
     }
   };
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+      <Header isDarkMode={false} />
       
       <main 
         className={`main-container transition-opacity duration-300 ease-in-out ${
@@ -228,7 +228,7 @@ function App() {
         {renderActiveTab()}
       </main>
 
-      <BottomNav activeTab={activeTab} setActiveTab={setActiveTab} isDarkMode={isDarkMode} />
+      <BottomNav activeTab={activeTab} setActiveTab={setActiveTab} isDarkMode={false} />
     </div>
   );
 }
