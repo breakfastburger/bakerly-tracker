@@ -248,6 +248,11 @@ const AnalyticsTab = ({ sales, totalEarned, isDarkMode }) => {
                         ${sale.price * sale.quantity}
                       </span>
                     </div>
+                    {sale.notes && (
+                      <div className="text-xs text-gray-500 mt-1">
+                        Notes: {sale.notes}
+                      </div>
+                    )}
                     {sale.isDebt && (
                       <div className="text-xs text-gray-500 mt-1">
                         Debt for {sale.customerName}

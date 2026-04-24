@@ -93,9 +93,15 @@
     height: 0;
   }
   
+  /* Fix floating UI - constrain html and body */
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
+  
   /* Main content container with safe area respect */
   .main-container {
-    flex: 1 1 0%;
+    height: 100dvh;
     display: flex;
     flex-direction: column;
   }
@@ -108,21 +114,21 @@
     /* Ensure proper scrolling on iOS */
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
-    /* Add bottom padding for fixed button */
-    padding-bottom: 120px;
+    /* Add large padding for scroll dead-zones */
+    padding-bottom: 150px;
   }
   
   /* Fixed confirm button container */
   .sticky-confirm {
     position: fixed;
-    bottom: 6rem;
+    bottom: 4rem;
     left: 0;
     right: 0;
     background: white;
     padding: 1rem;
     border-top: 1px solid #e5e7eb;
-    z-index: 50;
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    z-index: 100;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
   }
 }
 
@@ -210,5 +216,12 @@
   .dark .nav-item:not(.active):hover {
     color: rgb(209 213 219);
     background-color: rgb(255 255 255 / 0.05);
+  }
+  
+  /* Selection feedback for preset quantities and stock levels */
+  .selected {
+    border: 3px solid rgb(53 195 245) !important;
+    background-color: rgb(53 195 245 / 0.1) !important;
+    transform: scale(1.02);
   }
 }

@@ -52,7 +52,7 @@ function App() {
     localStorage.setItem('bakerlyData', JSON.stringify(dataToSave));
   }, [sales, debts, payments, strawberryStock, chocolateStock, totalEarned]);
 
-  const handleSale = (product, quantity, isDebt, customerName) => {
+  const handleSale = (product, quantity, isDebt, customerName, notes = '') => {
     const sale = {
       id: Date.now(),
       product,
@@ -60,6 +60,7 @@ function App() {
       price: 1, // $1 per crepe
       isDebt,
       customerName,
+      notes,
       date: new Date().toISOString(),
       timestamp: new Date().toLocaleString()
     };
@@ -109,30 +110,33 @@ function App() {
 
   const deleteDebtOrder = (customerName, orderId) => {
     setDebts(prev => {
-      return prev.map(debt => {
-        if (debt.customerName === customerName) {
-          const updatedItems = debt.items.filter(item => item.id !== orderId);
-          const deletedItem = debt.items.find(item => item.id === orderId);
-          
-          // Remove from sales array
-          if (deletedItem) {
-            setSales(salesPrev => salesPrev.filter(sale => sale.id !== orderId));
-          }
-          
-          if (updatedItems.length === 0) {
-            // If no items left, remove the entire debt
-            return prev.filter(d => d.customerName !== customerName);
-          } else {
-            // Update the debt with remaining items
-            return {
-              ...debt,
-              items: updatedItems,
-              amount: updatedItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)
-            };
-          }
-        }
-        return debt;
-      });
+      const targetDebt = prev.find(debt => debt.customerName === customerName);
+      if (!targetDebt) return prev;
+      
+      const deletedItem = targetDebt.items.find(item => item.id === orderId);
+      
+      // Remove from sales array
+      if (deletedItem) {
+        setSales(salesPrev => salesPrev.filter(sale => sale.id !== orderId));
+      }
+      
+      const updatedItems = targetDebt.items.filter(item => item.id !== orderId);
+      
+      if (updatedItems.length === 0) {
+        // If no items left, remove the entire debt
+        return prev.filter(d => d.customerName !== customerName);
+      } else {
+        // Update the debt with remaining items
+        return prev.map(debt => 
+          debt.customerName === customerName 
+            ? {
+                ...debt,
+                items: updatedItems,
+                amount: updatedItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+              }
+            : debt
+        );
+      }
     });
   };
 

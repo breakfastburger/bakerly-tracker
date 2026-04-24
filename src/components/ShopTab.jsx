@@ -6,6 +6,8 @@ const ShopTab = ({ onSale, strawberryStock, chocolateStock, isDarkMode }) => {
   const [quantity, setQuantity] = useState(1);
   const [isDebt, setIsDebt] = useState(false);
   const [customerName, setCustomerName] = useState('');
+  const [selectedPreset, setSelectedPreset] = useState(null);
+  const [notes, setNotes] = useState('');
 
   const products = [
     {
@@ -31,6 +33,8 @@ const ShopTab = ({ onSale, strawberryStock, chocolateStock, isDarkMode }) => {
     setQuantity(1);
     setIsDebt(false);
     setCustomerName('');
+    setSelectedPreset(null);
+    setNotes('');
   };
 
   const handleConfirmSale = () => {
@@ -41,13 +45,14 @@ const ShopTab = ({ onSale, strawberryStock, chocolateStock, isDarkMode }) => {
       return;
     }
 
-    onSale(selectedProduct.id, quantity, isDebt, customerName);
+    onSale(selectedProduct.id, quantity, isDebt, customerName, notes);
     
     // Reset form
     setSelectedProduct(null);
     setQuantity(1);
     setIsDebt(false);
     setCustomerName('');
+    setNotes('');
   };
 
   
@@ -134,8 +139,13 @@ const ShopTab = ({ onSale, strawberryStock, chocolateStock, isDarkMode }) => {
             {/* Quantity Presets */}
             <div className="grid grid-cols-3 gap-2 mb-4">
               <button
-                onClick={() => setQuantity(Math.min(currentStock, 6))}
+                onClick={() => {
+                  setQuantity(Math.min(currentStock, 6));
+                  setSelectedPreset(6);
+                }}
                 className={`p-2 rounded-lg text-sm font-medium transition-colors ${
+                  selectedPreset === 6 ? 'selected' : ''
+                } ${
                   isDarkMode 
                     ? 'bg-[#35c3f5] text-white hover:bg-[#35c3f5]/90' 
                     : 'bg-[#35c3f5] text-white hover:bg-[#35c3f5]/90'
@@ -145,8 +155,13 @@ const ShopTab = ({ onSale, strawberryStock, chocolateStock, isDarkMode }) => {
                 1 Pack ($6)
               </button>
               <button
-                onClick={() => setQuantity(Math.min(currentStock, 12))}
+                onClick={() => {
+                  setQuantity(Math.min(currentStock, 12));
+                  setSelectedPreset(12);
+                }}
                 className={`p-2 rounded-lg text-sm font-medium transition-colors ${
+                  selectedPreset === 12 ? 'selected' : ''
+                } ${
                   isDarkMode 
                     ? 'bg-gray-700 text-gray-300 hover:bg-gray-600' 
                     : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
@@ -156,8 +171,13 @@ const ShopTab = ({ onSale, strawberryStock, chocolateStock, isDarkMode }) => {
                 2 Packs ($12)
               </button>
               <button
-                onClick={() => setQuantity(Math.min(currentStock, 18))}
+                onClick={() => {
+                  setQuantity(Math.min(currentStock, 18));
+                  setSelectedPreset(18);
+                }}
                 className={`p-2 rounded-lg text-sm font-medium transition-colors ${
+                  selectedPreset === 18 ? 'selected' : ''
+                } ${
                   isDarkMode 
                     ? 'bg-gray-700 text-gray-300 hover:bg-gray-600' 
                     : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
@@ -171,7 +191,10 @@ const ShopTab = ({ onSale, strawberryStock, chocolateStock, isDarkMode }) => {
             {/* Manual Quantity Adjustment */}
             <div className="flex items-center justify-center space-x-4">
               <button
-                onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                onClick={() => {
+                  setQuantity(Math.max(1, quantity - 1));
+                  setSelectedPreset(null);
+                }}
                 className={`p-2 rounded-full transition-colors ${
                   isDarkMode 
                     ? 'bg-gray-700 hover:bg-gray-600 text-gray-300' 
@@ -187,7 +210,10 @@ const ShopTab = ({ onSale, strawberryStock, chocolateStock, isDarkMode }) => {
                 {quantity}
               </div>
               <button
-                onClick={() => setQuantity(Math.min(currentStock, quantity + 1))}
+                onClick={() => {
+                  setQuantity(Math.min(currentStock, quantity + 1));
+                  setSelectedPreset(null);
+                }}
                 className={`p-2 rounded-full transition-colors ${
                   isDarkMode 
                     ? 'bg-gray-700 hover:bg-gray-600 text-gray-300' 
@@ -266,6 +292,25 @@ const ShopTab = ({ onSale, strawberryStock, chocolateStock, isDarkMode }) => {
                 setCustomerName(properCase);
               }}
               placeholder="Enter customer name"
+              className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                isDarkMode 
+                  ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
+                  : 'bg-white border-gray-300'
+              }`}
+            />
+          </div>
+
+          <div className="mb-6">
+            <label className={`block text-sm font-medium mb-2 ${
+              isDarkMode ? 'text-gray-300' : 'text-gray-700'
+            }`}>
+              Notes (Optional):
+            </label>
+            <textarea
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder="Add any notes about this sale..."
+              rows={2}
               className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
                 isDarkMode 
                   ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
@@ -354,7 +399,7 @@ const ShopTab = ({ onSale, strawberryStock, chocolateStock, isDarkMode }) => {
                   <div className={`text-sm ${
                     isDarkMode ? 'text-gray-400' : 'text-gray-500'
                   }`}>
-                    {productStock < 5 ? `Only ${productStock} left!` : 'In stock'}
+                    {productStock === 0 ? 'Sold Out' : productStock < 5 ? `Only ${productStock} left!` : 'In stock'}
                   </div>
                 </div>
               </div>
