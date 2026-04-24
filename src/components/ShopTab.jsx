@@ -56,7 +56,7 @@ const ShopTab = ({ onSale, strawberryStock, chocolateStock, isDarkMode }) => {
     
     if (currentStock === 0) {
       return (
-        <div className="p-4 max-w-md mx-auto">
+        <div className="scrollable-content p-4 max-w-md mx-auto">
           <div className={`rounded-xl shadow-lg p-6 ${
             isDarkMode ? 'bg-gray-800' : 'bg-white'
           }`}>
@@ -88,7 +88,7 @@ const ShopTab = ({ onSale, strawberryStock, chocolateStock, isDarkMode }) => {
     }
     
     return (
-      <div className="p-4 max-w-md mx-auto">
+      <div className="scrollable-content p-4 max-w-md mx-auto">
         <div className={`rounded-xl shadow-lg p-6 ${
           isDarkMode ? 'bg-gray-800' : 'bg-white'
         }`}>
