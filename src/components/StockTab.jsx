@@ -110,7 +110,7 @@ const StockTab = ({ strawberryStock, setStrawberryStock, chocolateStock, setChoc
   ];
 
   return (
-    <div className="p-4">
+    <div className="scrollable-content p-4">
       <div className="flex items-center justify-between mb-6">
         <h1 className={`text-2xl font-bold ${
           isDarkMode ? 'text-white' : 'text-gray-900'

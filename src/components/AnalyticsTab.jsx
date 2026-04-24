@@ -131,7 +131,7 @@ const AnalyticsTab = ({ sales, totalEarned, isDarkMode }) => {
   const selectedDateProfit = selectedDate ? getProfitForDate(selectedDate) : 0;
 
   return (
-    <div className="p-4">
+    <div className="scrollable-content p-4">
       <h1 className={`text-2xl font-bold mb-6 text-center ${
         isDarkMode ? 'text-white' : 'text-gray-900'
       }`}>

@@ -99,7 +99,12 @@
     display: flex;
     flex-direction: column;
     min-height: 100dvh;
-    max-height: 100dvh;
+    /* Remove automatic scrolling - let individual tabs control scrolling */
+  }
+  
+  /* Scrollable containers for tabs that need scrolling */
+  .scrollable-content {
+    flex: 1 1 0%;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     /* Ensure proper scrolling on iOS */
