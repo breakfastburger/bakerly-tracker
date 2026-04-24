@@ -214,7 +214,7 @@ const DebtsTab = ({ debts, onClearDebt, onDeleteOrder, isDarkMode }) => {
   }
 
   return (
-    <div className="scrollable-content p-4">
+    <div className="scrollable-content p-4" style={{ paddingBottom: '200px' }}>
       <h1 className={`text-2xl font-bold mb-6 text-center ${
         isDarkMode ? 'text-white' : 'text-gray-900'
       }`}>
@@ -236,6 +236,18 @@ const DebtsTab = ({ debts, onClearDebt, onDeleteOrder, isDarkMode }) => {
           <p className={isDarkMode ? 'text-gray-400' : 'text-gray-500'}>
             All customers have paid their dues!
           </p>
+          {selectedCustomer && (
+            <button
+              onClick={() => setSelectedCustomer(null)}
+              className={`mt-4 px-4 py-2 rounded-lg transition-colors ${
+                isDarkMode 
+                  ? 'bg-gray-700 text-gray-300 hover:bg-gray-600' 
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              }`}
+            >
+              Back to Debt List
+            </button>
+          )}
         </div>
       ) : (
         <div className="space-y-3 max-w-md mx-auto">

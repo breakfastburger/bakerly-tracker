@@ -8,6 +8,7 @@ const StockTab = ({ strawberryStock, setStrawberryStock, chocolateStock, setChoc
   const [stockHistory, setStockHistory] = useState([]);
   const [lowStockThreshold, setLowStockThreshold] = useState(5);
   const [showSettings, setShowSettings] = useState(false);
+  const [selectedPreset, setSelectedPreset] = useState(null);
 
   const handleUpdateStock = () => {
     const value = parseInt(newStockValue);
@@ -110,7 +111,7 @@ const StockTab = ({ strawberryStock, setStrawberryStock, chocolateStock, setChoc
   ];
 
   return (
-    <div className="scrollable-content p-4">
+    <div className="scrollable-content p-4" style={{ paddingBottom: '200px' }}>
       <div className="flex items-center justify-between mb-6">
         <h1 className={`text-2xl font-bold ${
           isDarkMode ? 'text-white' : 'text-gray-900'
@@ -337,8 +338,13 @@ const StockTab = ({ strawberryStock, setStrawberryStock, chocolateStock, setChoc
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 <button
-                  onClick={() => handlePresetStock('strawberry', 12)}
+                  onClick={() => {
+                    handlePresetStock('strawberry', 12);
+                    setSelectedPreset('strawberry-12');
+                  }}
                   className={`py-2 text-sm rounded-lg transition-colors ${
+                    selectedPreset === 'strawberry-12' ? 'selected' : ''
+                  } ${
                     isDarkMode 
                       ? 'bg-gray-700 text-gray-300 hover:bg-gray-600' 
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -348,8 +354,13 @@ const StockTab = ({ strawberryStock, setStrawberryStock, chocolateStock, setChoc
                   Half Dozen
                 </button>
                 <button
-                  onClick={() => handlePresetStock('strawberry', 24)}
+                  onClick={() => {
+                    handlePresetStock('strawberry', 24);
+                    setSelectedPreset('strawberry-24');
+                  }}
                   className={`py-2 text-sm rounded-lg transition-colors ${
+                    selectedPreset === 'strawberry-24' ? 'selected' : ''
+                  } ${
                     isDarkMode 
                       ? 'bg-gray-700 text-gray-300 hover:bg-gray-600' 
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -368,8 +379,13 @@ const StockTab = ({ strawberryStock, setStrawberryStock, chocolateStock, setChoc
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 <button
-                  onClick={() => handlePresetStock('chocolate', 12)}
+                  onClick={() => {
+                    handlePresetStock('chocolate', 12);
+                    setSelectedPreset('chocolate-12');
+                  }}
                   className={`py-2 text-sm rounded-lg transition-colors ${
+                    selectedPreset === 'chocolate-12' ? 'selected' : ''
+                  } ${
                     isDarkMode 
                       ? 'bg-gray-700 text-gray-300 hover:bg-gray-600' 
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -379,8 +395,13 @@ const StockTab = ({ strawberryStock, setStrawberryStock, chocolateStock, setChoc
                   Half Dozen
                 </button>
                 <button
-                  onClick={() => handlePresetStock('chocolate', 24)}
+                  onClick={() => {
+                    handlePresetStock('chocolate', 24);
+                    setSelectedPreset('chocolate-24');
+                  }}
                   className={`py-2 text-sm rounded-lg transition-colors ${
+                    selectedPreset === 'chocolate-24' ? 'selected' : ''
+                  } ${
                     isDarkMode 
                       ? 'bg-gray-700 text-gray-300 hover:bg-gray-600' 
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -507,7 +528,51 @@ const StockTab = ({ strawberryStock, setStrawberryStock, chocolateStock, setChoc
           )}
         </div>
 
-              </div>
+        {/* Stock History */}
+        {stockHistory.length > 0 && (
+          <div className={`rounded-xl shadow-lg p-6 ${
+            isDarkMode ? 'bg-gray-800' : 'bg-white'
+          }`}>
+            <h2 className={`text-lg font-bold mb-4 ${
+              isDarkMode ? 'text-white' : 'text-gray-900'
+            }`}>
+              Stock History
+            </h2>
+            <div className="space-y-2 max-h-48 overflow-y-auto">
+              {stockHistory.map(entry => (
+                <div key={entry.id} className={`rounded-lg p-3 text-sm ${
+                  isDarkMode ? 'bg-gray-700' : 'bg-gray-50'
+                }`}>
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center space-x-2">
+                      <img 
+                        src={getProductImage(entry.product)} 
+                        alt={entry.product}
+                        className="w-6 h-6 object-contain"
+                      />
+                      <span className={isDarkMode ? 'text-white' : 'text-gray-900'}>
+                        {entry.product === 'strawberry' ? 'Strawberry' : 'Chocolate'}
+                      </span>
+                    </div>
+                    <div className="text-right">
+                      <div className={`font-medium ${
+                        entry.change > 0 ? 'text-green-600' : entry.change < 0 ? 'text-red-600' : 'text-gray-600'
+                      }`}>
+                        {entry.change > 0 ? '+' : ''}{entry.change}
+                      </div>
+                      <div className={`text-xs ${
+                        isDarkMode ? 'text-gray-400' : 'text-gray-500'
+                      }`}>
+                        {entry.previousStock} → {entry.newStock}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
