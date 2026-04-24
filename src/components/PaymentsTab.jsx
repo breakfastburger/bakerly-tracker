@@ -104,7 +104,7 @@ const PaymentsTab = ({ payments, onDeleteOrder, isDarkMode }) => {
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-8 rounded overflow-hidden">
                         <img 
-                          src={payment.product === 'strawberry' ? '/bakerly-tracker/images/strawberry.png' : '/bakerly-tracker/images/chocolate.png'}
+                          src={payment.product === 'strawberry' ? '/images/strawberry.png' : '/images/chocolate.png'}
                           alt={payment.product}
                           className="w-full h-full object-contain"
                         />
@@ -272,7 +272,7 @@ const PaymentsTab = ({ payments, onDeleteOrder, isDarkMode }) => {
                     {datePayments.slice(0, 3).map((payment, index) => (
                       <span key={payment.id} className="flex items-center space-x-1">
                         <img 
-                          src={payment.product === 'strawberry' ? '/bakerly-tracker/images/strawberry.png' : '/bakerly-tracker/images/chocolate.png'}
+                          src={payment.product === 'strawberry' ? '/images/strawberry.png' : '/images/chocolate.png'}
                           alt={payment.product}
                           className="w-4 h-4 object-contain"
                         />

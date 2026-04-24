@@ -14,7 +14,7 @@ const Header = ({ isDarkMode }) => {
       <div className="px-4 py-3 flex items-center justify-between">
         <div className="flex-1" />
         <img 
-          src="/bakerly-tracker/images/logo.png" 
+          src="/images/logo.png" 
           alt="Bakerly Tracker" 
           className="h-12 w-auto"
         />
