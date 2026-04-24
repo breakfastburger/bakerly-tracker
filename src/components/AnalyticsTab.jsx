@@ -234,7 +234,7 @@ const AnalyticsTab = ({ sales, totalEarned, isDarkMode }) => {
                     <div className="flex items-center justify-between text-sm">
                       <div className="flex items-center space-x-2">
                         <img 
-                          src={sale.product === 'strawberry' ? '/images/strawberry.png' : '/images/chocolate.png'}
+                          src={sale.product === 'strawberry' ? '/bakerly-tracker/images/strawberry.png' : '/bakerly-tracker/images/chocolate.png'}
                           alt={sale.product}
                           className="w-6 h-6 object-contain"
                         />

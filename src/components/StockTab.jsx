@@ -98,7 +98,7 @@ const StockTab = ({ strawberryStock, setStrawberryStock, chocolateStock, setChoc
   };
 
   const getProductImage = (product) => {
-    return product === 'strawberry' ? '/images/strawberry.png' : '/images/chocolate.png';
+    return product === 'strawberry' ? '/bakerly-tracker/images/strawberry.png' : '/bakerly-tracker/images/chocolate.png';
   };
 
   const getProductColor = (product) => {
@@ -546,7 +546,7 @@ const StockTab = ({ strawberryStock, setStrawberryStock, chocolateStock, setChoc
                   <div className="flex justify-between items-center">
                     <div className="flex items-center space-x-2">
                       <img 
-                        src={entry.product === 'strawberry' ? '/images/strawberry.png' : '/images/chocolate.png'} 
+                        src={entry.product === 'strawberry' ? '/bakerly-tracker/images/strawberry.png' : '/bakerly-tracker/images/chocolate.png'} 
                         alt={entry.product}
                         className="w-6 h-6 object-contain"
                       />

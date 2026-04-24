@@ -92,7 +92,7 @@ const DebtsTab = ({ debts, onClearDebt, onDeleteOrder, isDarkMode }) => {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
                       <img 
-                        src={item.product === 'strawberry' ? '/images/strawberry.png' : '/images/chocolate.png'}
+                        src={item.product === 'strawberry' ? '/bakerly-tracker/images/strawberry.png' : '/bakerly-tracker/images/chocolate.png'}
                         alt={item.product}
                         className="w-8 h-8 object-contain"
                       />

@@ -15,7 +15,7 @@ const ShopTab = ({ onSale, strawberryStock, chocolateStock, isDarkMode }) => {
       name: 'Strawberry Crepe Pack',
       emoji: 'strawberry',
       price: 6,
-      image: '/images/strawberry.png',
+      image: '/bakerly-tracker/images/strawberry.png',
       color: 'from-red-500 to-red-600'
     },
     {
@@ -23,7 +23,7 @@ const ShopTab = ({ onSale, strawberryStock, chocolateStock, isDarkMode }) => {
       name: 'Chocolate Crepe Pack',
       emoji: 'chocolate',
       price: 6,
-      image: '/images/chocolate.png',
+      image: '/bakerly-tracker/images/chocolate.png',
       color: 'from-blue-500 to-blue-600'
     }
   ];
