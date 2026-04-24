@@ -108,14 +108,14 @@
     /* Ensure proper scrolling on iOS */
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
-    /* Add bottom padding for sticky button */
-    padding-bottom: 80px;
+    /* Add bottom padding for fixed button */
+    padding-bottom: 120px;
   }
   
   /* Fixed confirm button container */
   .sticky-confirm {
     position: fixed;
-    bottom: 5rem;
+    bottom: 6rem;
     left: 0;
     right: 0;
     background: white;
