@@ -15,9 +15,7 @@ const BottomNav = ({ activeTab, setActiveTab, isDarkMode }) => {
       isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
     }`}
          style={{ 
-           paddingBottom: 'calc(env(safe-area-inset-bottom) + 12px)',
-           marginBottom: '0',
-           height: 'calc(80px + env(safe-area-inset-bottom))'
+           paddingBottom: 'env(safe-area-inset-bottom)'
          }}>
       <div className="flex justify-around items-center h-20">
         {navItems.map(item => {
