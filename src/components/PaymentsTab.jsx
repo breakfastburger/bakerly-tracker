@@ -95,7 +95,7 @@ const PaymentsTab = ({ payments, onDeleteOrder, isDarkMode }) => {
             }`}>
               Payment History
             </h3>
-            <div className="space-y-3">
+            <div className="space-y-3 max-h-64 overflow-y-auto" style={{ paddingBottom: '100px' }}>
               {datePayments.map(payment => (
                 <div key={payment.id} className={`rounded-lg p-3 ${
                   isDarkMode ? 'bg-gray-700' : 'bg-gray-50'

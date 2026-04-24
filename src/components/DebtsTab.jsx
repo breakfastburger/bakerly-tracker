@@ -84,7 +84,7 @@ const DebtsTab = ({ debts, onClearDebt, onDeleteOrder, isDarkMode }) => {
             }`}>
               Purchase History
             </h3>
-            <div className="space-y-3">
+            <div className="space-y-3 max-h-64 overflow-y-auto" style={{ paddingBottom: '100px' }}>
               {customerDebt.items.map((item, index) => (
                 <div key={item.id} className={`rounded-lg p-3 ${
                   isDarkMode ? 'bg-gray-700' : 'bg-gray-50'
