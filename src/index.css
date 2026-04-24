@@ -109,7 +109,8 @@
     /* Ensure proper scrolling on iOS */
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
-    /* Remove height constraints completely for natural scrolling */
+    /* Add bottom padding to ensure confirm button is accessible */
+    padding-bottom: 100px;
   }
 }
 
