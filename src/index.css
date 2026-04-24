@@ -98,7 +98,8 @@
     flex: 1 1 0%;
     display: flex;
     flex-direction: column;
-    min-height: 100dvh;
+    /* Use calc to account for header and bottom navigation */
+    height: calc(100dvh - 5rem - 5rem);
     /* Remove automatic scrolling - let individual tabs control scrolling */
   }
   
@@ -110,6 +111,8 @@
     /* Ensure proper scrolling on iOS */
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
+    /* Use calc to account for header and bottom navigation */
+    height: calc(100dvh - 5rem - 5rem);
   }
 }
 
