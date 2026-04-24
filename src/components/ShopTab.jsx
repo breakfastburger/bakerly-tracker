@@ -294,19 +294,23 @@ const ShopTab = ({ onSale, strawberryStock, chocolateStock, isDarkMode }) => {
             </div>
           </div>
 
-          <button
-            onClick={handleConfirmSale}
-            disabled={!customerName.trim() || currentStock === 0}
-            className={`w-full py-3 rounded-lg font-medium transition-colors ${
-              selectedProduct.id === 'strawberry' 
-                ? 'bg-red-500 hover:bg-red-600 text-white' 
-                : 'bg-blue-500 hover:bg-blue-600 text-white'
-            } disabled:opacity-50 disabled:cursor-not-allowed`}
-          >
-            Confirm Sale
-          </button>
-        </div>
+          </div>
+      
+      {/* Sticky Confirm Button */}
+      <div className="sticky-confirm">
+        <button
+          onClick={handleConfirmSale}
+          disabled={!customerName.trim() || currentStock === 0}
+          className={`w-full py-3 rounded-lg font-medium transition-colors ${
+            selectedProduct.id === 'strawberry' 
+              ? 'bg-red-500 hover:bg-red-600 text-white' 
+              : 'bg-blue-500 hover:bg-blue-600 text-white'
+          } disabled:opacity-50 disabled:cursor-not-allowed`}
+        >
+          Confirm Sale
+        </button>
       </div>
+    </div>
     );
   }
 

@@ -98,7 +98,6 @@
     flex: 1 1 0%;
     display: flex;
     flex-direction: column;
-    /* Remove height constraint - let scrollable-content handle scrolling */
   }
   
   /* Scrollable containers for tabs that need scrolling */
@@ -109,8 +108,18 @@
     /* Ensure proper scrolling on iOS */
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
-    /* Add bottom padding to ensure confirm button is accessible */
-    padding-bottom: 100px;
+    /* Add bottom padding for sticky button */
+    padding-bottom: 80px;
+  }
+  
+  /* Sticky confirm button container */
+  .sticky-confirm {
+    position: sticky;
+    bottom: 0;
+    background: white;
+    padding: 1rem;
+    border-top: 1px solid #e5e7eb;
+    z-index: 10;
   }
 }
 
