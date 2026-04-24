@@ -16,10 +16,7 @@ function App() {
   const [strawberryStock, setStrawberryStock] = useState(25);
   const [chocolateStock, setChocolateStock] = useState(25);
   const [totalEarned, setTotalEarned] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [touchStart, setTouchStart] = useState(null);
-  const [touchEnd, setTouchEnd] = useState(null);
-  const [isDarkMode, setIsDarkMode] = useState(true);
+    const [isDarkMode, setIsDarkMode] = useState(true);
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
@@ -27,40 +24,6 @@ function App() {
 
   const tabs = ['shop', 'debts', 'analytics', 'stock', 'payments'];
   const currentTabIndex = tabs.indexOf(activeTab);
-
-  // Swipe gesture handlers
-  const handleTouchStart = (e) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchMove = (e) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-    
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > 50;
-    const isRightSwipe = distance < -50;
-    
-    if (isLeftSwipe && currentTabIndex < tabs.length - 1) {
-      // Swipe left - go to next tab
-      setIsTransitioning(true);
-      setTimeout(() => {
-        setActiveTab(tabs[currentTabIndex + 1]);
-        setIsTransitioning(false);
-      }, 150);
-    } else if (isRightSwipe && currentTabIndex > 0) {
-      // Swipe right - go to previous tab
-      setIsTransitioning(true);
-      setTimeout(() => {
-        setActiveTab(tabs[currentTabIndex - 1]);
-        setIsTransitioning(false);
-      }, 150);
-    }
-  };
 
   // Load data from localStorage on mount
   useEffect(() => {
@@ -217,14 +180,7 @@ function App() {
     <div className="min-h-screen flex flex-col">
       <Header isDarkMode={false} />
       
-      <main 
-        className={`main-container transition-opacity duration-300 ease-in-out ${
-          isTransitioning ? 'opacity-0' : 'opacity-100'
-        }`}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-      >
+      <main className="main-container">
         {renderActiveTab()}
       </main>
 
