@@ -47,7 +47,6 @@
     flex-direction: column;
     /* Use dynamic viewport height */
     min-height: 100dvh;
-    height: 100dvh;
     overflow-x: hidden;
     width: 100%;
     position: relative;
