@@ -17,7 +17,7 @@ const BottomNav = ({ activeTab, setActiveTab, isDarkMode }) => {
          style={{ 
            paddingBottom: 'env(safe-area-inset-bottom)'
          }}>
-      <div className="flex justify-around items-center h-16">
+      <div className="flex justify-around items-center h-14">
         {navItems.map(item => {
           const Icon = item.icon;
           return (
