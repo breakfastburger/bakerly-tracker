@@ -49,8 +49,6 @@
     overflow-x: hidden;
     width: 100%;
     position: relative;
-    /* Add safe area padding for iOS */
-    padding-top: env(safe-area-inset-top);
   }
   
   /* iOS PWA specific fixes */
@@ -120,7 +118,7 @@
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
     /* Add padding for scroll dead-zones */
-    padding-bottom: 100px;
+    padding-bottom: 50px;
   }
   
   /* Fixed confirm button container */
