@@ -40,12 +40,6 @@
   }
   
   #root {
-    flex: 1 1 0%;
-    display: flex;
-    flex-direction: column;
-    /* Use dynamic viewport height for iOS PWA */
-    height: -webkit-fill-available;
-    height: 100dvh;
     overflow-x: hidden;
     width: 100%;
     position: relative;
@@ -104,14 +98,12 @@
   
   /* Main content container with safe area respect */
   .main-container {
-    height: 100dvh;
     display: flex;
     flex-direction: column;
   }
   
   /* Scrollable containers for tabs that need scrolling */
   .scrollable-content {
-    flex: 1 1 0%;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     /* Ensure proper scrolling on iOS */
