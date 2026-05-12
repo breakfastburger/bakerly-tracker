@@ -119,9 +119,8 @@
     /* Ensure proper scrolling on iOS */
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
-    /* Add padding for fixed header and scroll dead-zones */
-    padding-top: 60px;
-    padding-bottom: 150px;
+    /* Add padding for scroll dead-zones */
+    padding-bottom: 100px;
   }
   
   /* Fixed confirm button container */
